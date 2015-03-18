@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="chiddybang">
+	<head>
+		<title>Chiddy Bang!</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Styles -->
+		<link rel="stylesheet" type="text/css" href="css/base.css">
+		<link rel="stylesheet" type="text/css" href="css/responsive.css">
+	</head>
+
+	<body ng-controller="homeController" ng-init="init()">
+		<header class="tall">
+			<img class="vert" id="logo1" src="img/logo.png" alt="Logo">
+			<h1 class="vert">Chiddy Bang!</h1>
+
+			<!-- Menu -->
+			<div id="menu" ng-show="!loadingPosition">
+				
+				<div class="clear"></div>
+			</div>
+
+			<h2 class="vert logo">Get things done!</h2>
+			<div class="clear"></div>
+		</header>
+
+		<!-- loading pane -->
+		<div id="loading" ng-show="loadingPosition">
+			<img id="pin_icon" class="vert" src="img/pin.png" alt="pin">
+			<h2 class="vert">{{ status }}</h2>
+		</div>
+
+		
+
+		<div ng-show="!geoEnabled">
+			Sorry, but your browser doesn't support location services
+		</div>
+
+		<footer>
+			<h1>Web Science Team 4</h1>
+			<h2>James Adler   |   Otacilio Oliveira Neto   |   Alyaz Mohammed   |   Brent Davey</h2>
+		</footer>
+
+		<!-- Scripts -->
+		<script src="js/lib/jquery-2.1.1.min.js"></script>
+		<script src="js/lib/angular.min.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>

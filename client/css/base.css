@@ -1,0 +1,179 @@
+html {
+  background-color:#ecf0f1;
+  font-family:"HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",
+    Helvetica,Arial,"Lucida Grande",sans-serif;
+  font-weight:300;
+  height:100%;
+  position:relative;
+  width:100%
+}
+
+body {
+  margin:0 auto 40px; /* bottom = footer height */
+  min-width: 300px;
+  height: 100%;
+  width: 100%;
+}
+
+#body-content {
+  width:100%
+}
+
+.vert {
+  position:relative;
+  top:50%;
+  transform:translateY(-50%);
+  -webkit-transform:translateY(-50%)
+}
+
+header {
+  background-color: #801515;
+	background: linear-gradient(#801515 80%, #801515 50%, #671142 90%);
+  margin:0 auto;
+  width:100%;
+  z-index:1
+}
+
+header.short {
+  height:50px
+}
+
+header.tall {
+  height:60%
+}
+
+header h1, header h2 {
+  color:#fff;
+  display:inline-block;
+  font-weight:300
+}
+
+header.short h1 {
+  font-size:30px;
+  margin:0 0 0 10px
+}
+
+header.short img {
+  height:25px;
+  margin:0 0 0 2%
+}
+
+header.short h2 {
+  font-size:20px;
+  float:right;
+  margin:3px 4% 0 0
+}
+
+header.tall img {
+  height:50%;
+  margin:0 10px 0 5%
+}
+
+header.tall h1 {
+  font-size:100px;
+  margin:0 20px 20px
+}
+
+header.tall h2 {
+  font-size:40px;
+	margin:100px 0 0 7%;
+}
+
+header * {
+  float:left
+}
+
+#loading {
+  background-color: #671142;
+  height:40%;
+  width:100%
+}
+
+#loading h2 {
+  color: #fff;
+  float:left;
+  font-size:25px;
+  font-weight:600;
+  margin:0;
+  top:50%;
+  transform:translateY(-50%);
+  -webkit-transform:translateY(-50%)
+}
+
+#loading img {
+  float:left;
+  height:75px;
+  margin:0 0 0 35%
+}
+
+#menu {
+  bottom:-10px;
+  display:inline;
+  height:50px;
+  margin:0;
+  position:relative
+}
+
+#menu ul {
+  list-style:none;
+  margin:0;
+  position:relative
+}
+
+#menu li {
+  color:#fff;
+  display:inline-block;
+  float:left;
+  font-size:20px;
+  padding:10px
+}
+
+#menu li:hover {
+  cursor:pointer
+}
+
+#menu li.active {
+  background-color:#ecf0f1;
+  border-radius:3px;
+  color:#000
+}
+
+footer {
+  background-color: black;
+  height:200px;
+  width:100%
+}
+
+footer h1 {
+  color:#fff;
+  display:block;
+  font-size:36px;
+  margin:0 auto;
+  padding-top:5%;
+  text-align:center
+}
+
+footer h2 {
+  color:#fff;
+  display:block;
+  font-size:24px;
+  font-weight:200;
+  margin:0 auto;
+  text-align:center
+}
+
+.clear {
+  clear:both
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+a[href^="tel:"]:before {
+  content: "\260E";
+  display: inline-block;
+  margin-right: 0.5em;
+}

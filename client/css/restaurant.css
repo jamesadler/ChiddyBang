@@ -1,0 +1,105 @@
+#restaurants-open, #restaurants-near {
+  clear:both;
+  list-style:none;
+  margin:0 0 25px;
+  padding: 25px 0;
+  vertical-align:top;
+  width:100%;
+  z-index:1;
+}
+
+/* Restaurant box */
+.rest-box {
+  background-color:#fff;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 25px;
+  min-width: 200px;
+  padding: 10px 15px;
+  position: relative;
+  width: calc(25% - 92.5px);
+}
+
+.rest-box a {
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+.rest-box img {
+  border: 1px solid #eee;
+  display:inline-block;
+  height:auto;
+  margin:10px auto 5px auto;
+  text-align:center;
+  width: 100%;
+}
+
+.rest-rating {
+  background: #27ae60;
+  border: 1px solid #27ae60;
+  border-radius: 15px;
+  color: #fff;
+  float:right;
+  font-size:11px;
+  text-align:center;
+  padding:5px 0;
+  width: 25px;
+}
+
+.rest-info {
+  font-size:14px;
+  padding: 0 1px;
+  margin: 3px 0;
+  position: relative;
+  width:100%
+}
+
+.rest-name {
+  display: inline-block;
+  font-size: 20px;
+  font-weight:700;
+  width: calc(100% - 30px);
+}
+
+.rest-dist {
+  font-style:italic;
+  float:right
+}
+
+.rest-phone {
+  margin-bottom: 3px;
+}
+
+.rest-phone a {
+  color: #3498db;
+  font-weight: 500;
+}
+
+.rest-addr, .rest-more {
+  float:left;
+  clear:left
+}
+
+.rest-category-list {
+  list-style: none;
+  margin: 3px 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.rest-category {
+  background: #3498db;
+  color: #fff;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 0;
+  padding: 3px 5px;
+  text-align: center;
+  width: calc(100%/3 - 15px);
+}
+
+.rest-category:nth-child(2) {
+  margin: 2px 7.5px;
+}
