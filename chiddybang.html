@@ -1,0 +1,109 @@
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>Chiddy Bang!</title>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">Chiddy Bang!</a>
+	    </div>
+	    <div id="navbar" class="navbar-collapse collapse">
+	      <form class="navbar-form navbar-right">
+        	{{> FBlogin}}
+	      </form>
+	    </div>
+	  </div>
+	</nav>
+	<br><br><br><br>
+
+	{{> localEvents}}
+
+</body>
+
+	<template name="FBlogin">
+		<div class="form-group">
+        	<input type="text" id="search" placeholder="Search..." class="form-control">
+        </div>
+        <div class="form-group" id="loginBtns"> 
+		    {{#if currentUser}}
+	    		<input type="button" id="createNewEvent" class="btn btn-info" value="Create New">
+	    		<span id="welcome">Welcome {{currentUser.services.facebook.name}}</span>
+	    		<input type="button" id="logout" class="btn btn-danger" value="Logout">
+		    {{else}}
+		      <input type="button" id="login" class="btn btn-primary" value="Login with Facebook">
+		    {{/if}}
+		</div>
+	</template>
+
+	<template name="localEvents">
+	  {{> Template.dynamic template=whichOne}}
+	</template>
+
+	<template name="newEvent">
+		<form>
+			<div class="form-group">
+				<label for="eventName">Event Name: </label>
+				<input type="text" id="eventName" name="eventName">
+			</div>
+			<div class="form-group">
+				<label for="eventLoc">Event Location: </label>
+		  	<input type="text" id="eventLoc" name="eventLoc" size="50">
+		  	<input type="hidden" id="locLat" value="">
+		  	<input type="hidden" id="locLong" value="">
+			</div>
+			<div class="form-group">
+				<label for="joinAs">Join As: </label><br/>
+				<input type="radio" name="joinAs" value="Driver"> Driver<br/>
+				<input type="radio" name="joinAs" value="Rider"> Rider
+			</div>
+			<div class="form-group">
+				<label for="numTransport">Number of people you can transport: </label>
+				<select id="numTransport">
+					<option value="1">1 Person</option>
+					<option value="2">2 People</option>
+					<option value="3">3 People</option>
+					<option value="4">4 People</option>
+					<option value="5">5 People</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="gasCharge">Gas Charge (per person): </label>
+				<input type="number" id="chargeAmount" min="0">
+			</div>
+			<div class="form-group">
+				<label for="otherNotes">Other Notes: </label>
+				<textarea id="otherNotes"></textarea>
+			</div>
+			<div id="map-canvas"></div>
+			<div class="form-group">
+				<input type="button" id="submitEvent" class="btn btn-default" value="Create Event">
+			</div>
+			
+		</form>
+	</template>
+
+	<template name="allEvents">
+		All events
+	</template>
+
+	<template name="map">
+
+    <div id="map" >
+      	<div id="map-canvas"></div>
+     </div>
+	</template>
+
+
+
+
+
