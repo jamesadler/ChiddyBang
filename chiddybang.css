@@ -1,4 +1,106 @@
-/* CSS declarations go here */
+html {
+  /*background-color:#ecf0f1;*/
+  height:100%;
+  /*position:relative;*/
+  width:100%
+}
+
+body {
+  /*margin:0 auto 40px; */
+  /*min-width: 300px;*/
+  /*height: 100%;*/
+  /*width: 100%;*/
+}
+
+.landingPageBG {
+	background: linear-gradient(#801515 80%, #801515 50%, #671142 90%) no-repeat;
+}
+
+#landingPage {
+	/*background-color: #801515;*/
+	/*background: linear-gradient(#801515 80%, #801515 50%, #671142 90%) no-repeat;*/
+	/*height: 200%;*/
+	margin: 0 auto;
+	width: 100%;
+	z-index: 1;
+	color: #fff;
+	text-align: center;
+}
+
+#location {
+	text-align: center;
+	color: #fff;
+}
+
+#locationStatus {
+	/*margin-top: 30px;*/
+}
+
+.landingPageColor {
+	color: white;
+}
+
+
+.full {
+    /*background: url('/img/logo.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;*/
+    /*background-color: #801515;*/
+	/*background: linear-gradient(#801515 80%, #801515 50%, #671142 90%);*/
+	/*height: 60%;*/
+}
+
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /*height: 100px;*/
+  background-color: #000;
+  text-align: center;
+  /*background-color: #671142;*/
+  /*background-color: #f5f5f5;*/
+}
+
+#logo {
+	height: 50%;
+	margin: 0 10px 0 5%;
+	width: 50%;
+}
+
+#locPin {
+	width: 100px;
+	padding-top: 54px;
+	/*height: 20%;*/
+	/*width: 15%;*/
+}
+
+.landingPage {
+	color: white;
+}
+
+/*header.tall img {
+	height: 50%;
+	margin: 0 10px 0 5%;
+}
+
+header {
+	background-color: #801515;
+	background: linear-gradient(#801515 80%, #801515 50%, #671142 90%);
+	margin:0 auto;
+	width:100%;
+	z-index:1;
+}
+*/
+/*.vert {
+	position: relative;
+	top: 50%;
+	transform: translateY(50%);
+	-webkit-transform: translateY(50%);
+}*/
 
 #welcome {
 	color: white;
@@ -14,9 +116,143 @@
 	padding-right: 10px;
 }
 
-#map-canvas { 
+.map-canvas { 
 	height: 300px; 
-	width: 300px; 
+	width: 270px; 
 	margin: 0; 
 	padding: 0;
 }
+
+.eventInfo {
+	border-radius: 15px;
+	border: 2px solid #801515;
+    padding: 10px; 
+}
+
+.eventName {
+	text-align: center;
+	font-weight: bold;
+	font-size: large;
+}
+
+.eventInfo.edit {
+	height: 400px;
+}
+
+.eventInfo.edit .eventName {
+	text-align: left;
+	font-weight: normal;
+	font-size: initial;
+}
+
+#newEvent {
+	padding-top: 50px;
+}
+
+#events td {
+	padding:10px;
+}
+
+.center {
+	text-align: center;
+}
+
+.attendee {
+	padding-left: 10px;
+}
+
+#alertBar {
+	margin-top: 50px;
+
+}
+#alertBar:hover {
+	cursor: pointer;
+}
+
+
+/*.vert {
+  position:relative;
+  top:50%;
+  transform:translateY(-50%);
+  -webkit-transform:translateY(-50%)
+}
+
+header {
+ 	background-color: #801515;
+	background: linear-gradient(#801515 80%, #801515 50%, #671142 90%);
+  	margin:0 auto;
+  	width:100%;
+  	z-index:1;
+}
+
+header.tall {
+  height:50%;
+}
+
+header h1, header h2 {
+  color:#fff;
+  display:inline-block;
+}
+
+header.tall img {
+  height:50%;
+  margin:0 10px 0 5%;
+}
+
+header.tall h1 {
+  margin:0 20px 20px;
+}
+
+header.tall h2 {
+  font-size:40px;
+	margin:100px 0 0 7%;
+}
+
+header * {
+  float:left;
+}
+
+#loading {
+  background-color: #671142;
+  height:50%;
+  width:100%
+}
+
+#loading h2 {
+  color: #fff;
+  float:left;
+  font-size:25px;
+  font-weight:600;
+  margin:0;
+  top:50%;
+  transform:translateY(-50%);
+  -webkit-transform:translateY(-50%)
+}
+
+#loading img {
+  float:left;
+  height:75px;
+  margin:0 0 0 35%
+}
+
+footer {
+  background-color: black;
+  height: 80px;
+  width:100%;
+  text-align: center;
+}
+
+footer h3 {
+  color:#fff;
+  margin:0 auto;
+  padding-top: 5px;
+
+}
+
+footer h4 {
+  color:#fff;
+}
+
+.clear {
+  clear:both
+}*/
