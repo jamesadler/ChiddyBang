@@ -15,4 +15,6 @@ chiddybang.html:
 chiddybang.css:
 	Contains the custom styling used throughout the app.
 
+Github repo:
+	https://github.com/jamesadler/ChiddyBang
 
