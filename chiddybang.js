@@ -3,6 +3,7 @@ ChiddyBang = new Mongo.Collection("chiddyBang");
 
 if (Meteor.isClient) {
 
+  // Handles login function through facebook
   Template.FBlogin.events({
     'click #login': function() {
         Meteor.loginWithFacebook({}, function(err){
@@ -32,9 +33,9 @@ if (Meteor.isClient) {
     }
   });
 
+  // Submits a new event to the database
   Template.localEvents.events({
     'click #submitEvent': function(event, template){
-
         var localEvent = {
           "userID":         $("#userID").val(),
           "usersName":      $("#usersName").val(),
@@ -60,6 +61,7 @@ if (Meteor.isClient) {
     }
   });
 
+  // Handles which template to load
   Template.localEvents.helpers({
     whichOne: function () {
       switch(Session.get('template')){
@@ -78,6 +80,7 @@ if (Meteor.isClient) {
     }
   });
 
+  // Gets a user's current geolocation 
   getLocation = function(output) {
     var UserPosition = {};
     if(output == true){
@@ -90,8 +93,6 @@ if (Meteor.isClient) {
             };
             
             $("#locationStatus").html("Got your location!");
-            // $("#locationStatus").append(UserPosition.lat);
-            // return UserPosition;
           },
           function(error){
             if (error.code == error.PERMISSION_DENIED){
@@ -130,10 +131,15 @@ if (Meteor.isClient) {
     getLocation(true);
   }
 
+  Template.landingPage.destroyed = function(){
+    $("body").removeClass("landingPageBG");
+  }
+
   toRad = function(Value) {
     return Value * Math.PI / 180;
   }
 
+  // Calculates the distance between the user's current location and the event location
   calcDist = function(lat2, lon2) {
     var R = 6371; // km
     var d = 0;
@@ -164,16 +170,14 @@ if (Meteor.isClient) {
     return d;
     };
 
+    // Displays all the events in the database, if they aren't expired
   Template.allEvents.rendered = function(){
     if(!this.rendered){
       window.onload = function() {
-        $("body").removeClass("landingPageBG");
         
         // var UserPosition = getLocation(false);
-        // console.log(UserPosition);
 
         var events = ChiddyBang.find().fetch();
-        // console.log(events);
         var today = new Date();
         var day = today.getDate();
         var month = today.getMonth() +1;
@@ -195,6 +199,7 @@ if (Meteor.isClient) {
           var eventID = events[i]["_id"];
           var mapcanvas = "map"+i.toString();
 
+          // Event is not expired, load in event detail
           if(localEvent['eventDate'] >= tmpDate){
             var Dparts = localEvent['eventDate'].split("-");
             var STparts = localEvent['eventStartTime'].split(":");
@@ -251,9 +256,10 @@ if (Meteor.isClient) {
             // console.log(calcDist(UserPosition.lat, UserPosition.long, locLat, locLong));
             // console.log(UserPosition.lat);
             var distance = calcDist(locLat, locLong);
-            console.log("d:"+distance);
+            // console.log("d:"+distance);
             // console.log($("#usersGeolocation").html());
 
+            // Sets up google map to display event location
             var mapOptions = {
               center: new google.maps.LatLng(locLat, locLong),
               zoom: 16,
@@ -281,6 +287,7 @@ if (Meteor.isClient) {
     }
   }
 
+  // Handles joining and leaving an event, as well as messaging the event organizer
   Template.allEvents.events({
     'click .joinEvent': function(event, template){
       var eventID = event["currentTarget"]["id"];
@@ -318,17 +325,14 @@ if (Meteor.isClient) {
     'click .leaveEvent': function(event, template){
       var eventID = event["currentTarget"]["id"];
       var userID = $("#userID").val();
-      // alert(eventID);
+
       var event = ChiddyBang.find({"_id":eventID}).fetch();
       event = event[0];
       var attendees = event['attendees'];
       var seatsLeft = event['seatsLeft'];
           
-
-      // console.log(attendees);
       for(var j=0; j<attendees.length; j++){
         if(attendees[j]['userID'] === userID){
-          console.log("deleting");
           attendees.splice(j,1);
           seatsLeft++;
         }
@@ -338,7 +342,6 @@ if (Meteor.isClient) {
         "seatsLeft": seatsLeft,
         "attendees": attendees
       }});
-
 
       $("#alertBar").addClass("alert alert-success reload");
       $("#alertBar").html("Left Event! Click to reload the page.");
@@ -362,6 +365,7 @@ if (Meteor.isClient) {
     }
   });
 
+  // Handles displaying and hiding the alert notification box
   Template.alertBar.events({
     'click #alertBar': function(event, template){
       $("#alertBar").removeClass().html("");
@@ -371,7 +375,7 @@ if (Meteor.isClient) {
     }
   });
 
-
+  // Handles the display for adding a new event
   Template.newEvent.rendered = function () { 
 
     if(!this.rendered){
@@ -380,7 +384,7 @@ if (Meteor.isClient) {
       $("#myEventsBtn").removeClass("active");
       input = document.getElementById('eventLoc');
       window.onload = function() { 
-          // input = document.getElementById('eventLoc'); 
+
           eventLoc = new google.maps.places.Autocomplete(input); 
    
           // When the user selects an address from the dropdown, 
@@ -398,6 +402,7 @@ if (Meteor.isClient) {
 
                     var tmpLatLong = results[0].geometry.location;
 
+                    // Iterates through the results and gets the lat and lon of the address
                     var latLong = [];
                     for(key in tmpLatLong){
                       if(typeof tmpLatLong[key] == 'number'){
@@ -411,6 +416,7 @@ if (Meteor.isClient) {
                     $("#locLat").val(latLong[0]);
                     $("#locLong").val(latLong[1]);
 
+                    // Sets up google map to display event location
                     var mapOptions = {
                       center: new google.maps.LatLng(locLat, locLong),
                       zoom: 16,
@@ -446,14 +452,14 @@ if (Meteor.isClient) {
     Session.set('map', false);
   };
 
+  // Handles displaying all the events a user created.
   Template.myEvents.rendered = function(){
     if(!this.rendered){
-      // $("ul.nav >li.active").removeClass("active");
+
       $("#homeBtn").removeClass("active");
       $("#myEventsBtn").addClass("active");
 
       var user_ID = $("#userID").val();
-      console.log(user_ID);
 
       var events = ChiddyBang.find({userID:user_ID}).fetch();
 
@@ -490,6 +496,7 @@ if (Meteor.isClient) {
     }
   };
 
+  // Handles updating an events data and closing an event
   Template.myEvents.events({
     'click .updateEvent': function(event, template){
       var eventID = event['currentTarget']['parentElement']['parentElement']['id'];
@@ -517,6 +524,7 @@ if (Meteor.isClient) {
     }
   });
 
+  // Handles buttons on the left side of the nav
   Template.leftNav.events({
     'click #homeBtn': function(event, template){
       Session.set('template','allEvents');
@@ -528,118 +536,17 @@ if (Meteor.isClient) {
     }
   });
 
+  // Handles the display of events a user joined
+  // Not yet implemented
   Template.eventsJoined.rendered = function(){
     if(!this.rendered){
       $("#homeBtn").removeClass("active");
       $("#myEventsBtn").removeClass("active");
       // $("#eventsJoinedBtn").addClass("active");
-    //   window.onload = function() {
-    //   var events = ChiddyBang.find().fetch();
-    //   console.log(events);
-    //   var today = new Date();
-    //   var day = today.getDate();
-    //   var month = today.getMonth() +1;
-    //   var year = today.getFullYear();
-
-    //   if(month < 10){
-    //     month = "0"+month;
-    //   }
-    //   if(day < 10){
-    //     day = "0"+day;
-    //   }
-
-    //   var tmpDate = year+"-"+month+"-"+day;
-    //   var userID = $("#userID").val();
-
-    //   for(var i=0; i < events.length; i++){
-
-    //     var localEvent = events[i];
-    //     var eventID = events[i]["_id"];
-    //     var mapcanvas = "map"+i.toString();
-
-
-    //     if(localEvent['eventDate'] >= tmpDate){
-    //       var Dparts = localEvent['eventDate'].split("-");
-    //       var STparts = localEvent['eventStartTime'].split(":");
-    //       var ETparts = localEvent['eventEndTime'].split(":");
-
-    //       var eventStart = new Date(Dparts[0],Dparts[1]-1,Dparts[2],STparts[0],STparts[1],0);
-    //       eventStart = eventStart.toString().replace("GMT-0400 (EDT)","");
-
-    //       var eventEnd = new Date(Dparts[0],Dparts[1]-1,Dparts[2],ETparts[0],ETparts[1],0);
-    //       eventEnd = eventEnd.toString().replace("GMT-0400 (EDT)","");
-          
-    //       var eventInfo = "<div class='eventInfo col-md-6'><div class='eventName'>"+localEvent['eventName']+"</div>";
-    //       eventInfo += "<div class='row'><div class='col-md-6 mapCol'><div id='"+mapcanvas+"' class='map-canvas'></div></div>";
-    //       eventInfo += "<div class='col-md-6'>";
-    //       eventInfo += "<div class='eventStartTime'>Starts: "+eventStart+"</div>";
-    //       eventInfo += "<div class='eventEndTime'>Ends: "+eventEnd+"</div>";
-          
-    //       if(localEvent['otherNotes']!==""){
-    //         eventInfo += "<div class='otherNotes'>Notes: "+localEvent['otherNotes']+"</div>";
-    //       }
-          
-    //       if(localEvent['chargeAmount'] === "0"){
-    //         eventInfo += "<div class='chargeAmount'>Price: Free</div>";
-    //       } else {
-    //         eventInfo += "<div class='chargeAmount'>Price: $"+localEvent['chargeAmount']+"</div>";
-    //       }
-          
-    //       eventInfo += "<div class='seats'><span class='seatsLeft'>"+localEvent['seatsLeft']+"</span> Seats Left</div>";
-
-    //       var attendees = localEvent['attendees'];
-    //       var isAttending = false;
-    //       for(var j=0; j<attendees.length; j++){
-    //         if(attendees[j]['userID'] === userID){
-    //           isAttending = true;
-    //         }
-    //       }
-
-    //       if(isAttending){
-    //         eventInfo += "<input type='button' class='leaveEvent btn btn-danger' id='"+eventID+"' value='Leave'>&nbsp;";
-    //       } else {
-    //         eventInfo += "<input type='button' class='joinEvent btn btn-success' id='"+eventID+"' value='Join'>&nbsp;";
-    //       }
-
-    //       eventInfo += "<input type='button' class='contactEvent btn btn-info' id='"+localEvent['userID']+"' value='Contact'>";
-    //       eventInfo += "</div></div>";
-
-    //       $("#events").append(eventInfo);
-          
-    //       var geocoder = new google.maps.Geocoder();
-
-    //       var locLat = localEvent["eventLocLat"];
-    //       var locLong = localEvent["eventLocLong"];
-
-    //       var mapOptions = {
-    //         center: new google.maps.LatLng(locLat, locLong),
-    //         zoom: 16,
-    //         mapTypeId: google.maps.MapTypeId.ROADMAP
-    //       };
-
-    //       map = new google.maps.Map(document.getElementById(mapcanvas), mapOptions); 
-
-    //       map.setCenter(new google.maps.LatLng(locLat, locLong));
-
-    //       var infowindow = new google.maps.InfoWindow({
-    //         content: localEvent["eventName"] + "<br>" + localEvent["eventLoc"]
-    //       });
-    //       var companyMarker = new google.maps.Marker({ 
-    //         position: new google.maps.LatLng(locLat, locLong), 
-    //         map: map,
-    //         title: localEvent["eventName"] + "<br>" + localEvent["eventLoc"],
-    //         visible:true
-    //       });
-    //       infowindow.open(map,companyMarker);
-    //     }
-    //   }
-    // }
-
       this.rendered = true;
     }
   };
   
-
 }
 
 if (Meteor.isServer) {
